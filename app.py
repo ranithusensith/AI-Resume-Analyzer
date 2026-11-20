@@ -1,12 +1,13 @@
+import os
+import re
+import tempfile
 from flask import Flask, render_template, request
 from PyPDF2 import PdfReader
 from docx import Document
-import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-
-UPLOAD_FOLDER = "uploads"
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 5 MB upload limit
 TECH_SKILLS = [
     "python",
     "java",
